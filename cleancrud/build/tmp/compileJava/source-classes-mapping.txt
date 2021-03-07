@@ -1,2 +1,0 @@
-com/cleancrud/domain/Person.java
- com.cleancrud.domain.Person
