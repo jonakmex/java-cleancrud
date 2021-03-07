@@ -1,18 +1,14 @@
-package com.cleancrud.interactor;
+package com.cleancrud.interactor.input;
 
-import com.cleancrud.interactor.input.CreateUnitInput;
-import com.cleancrud.interactor.input.Input;
+import lombok.AllArgsConstructor;
 import org.dozer.Mapper;
 
 import java.util.Map;
 
+@AllArgsConstructor
 public class InputFactory {
 
     private Mapper mapper;
-
-    public InputFactory(Mapper mapper) {
-        this.mapper = mapper;
-    }
 
     public  Input make (String inputName, Map<String,Object> params){
         if("CreateUnitInput".equals(inputName))

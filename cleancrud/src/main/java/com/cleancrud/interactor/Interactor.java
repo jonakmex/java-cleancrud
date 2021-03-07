@@ -1,5 +1,7 @@
 package com.cleancrud.interactor;
 
-public interface Interactor {
+import com.cleancrud.interactor.input.Input;
 
+public interface Interactor {
+    Callback execute(Input input);
 }
