@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.cleancrud.test.interactor.PersonCreateTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-07T20:33:40" hostname="mac10006459.local" time="0.004">
+<testsuite name="com.cleancrud.test.interactor.PersonCreateTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-07T20:37:36" hostname="mac10006459.local" time="0.161">
   <properties/>
-  <testcase name="create_person" classname="com.cleancrud.test.interactor.PersonCreateTest" time="0.004"/>
-  <system-out><![CDATA[Hello World
+  <testcase name="create_person" classname="com.cleancrud.test.interactor.PersonCreateTest" time="0.161"/>
+  <system-out><![CDATA[log4j: reset attribute= "false".
+log4j: Threshold ="null".
+log4j: Level value for root is  [DEBUG].
+log4j: root level set to DEBUG
+log4j: Class name: [org.apache.log4j.ConsoleAppender]
+log4j: Parsing layout of class: "org.apache.log4j.PatternLayout"
+log4j: Setting property [conversionPattern] to [%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n].
+log4j: Adding appender named [console] to category [root].
+2021-03-07 15:37:36 DEBUG PersonCreateTest:10 - Hello World
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1,11 +1,12 @@
 package com.cleancrud.test.interactor;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 public class PersonCreateTest {
-
+    private static final Logger logger = Logger.getLogger(PersonCreateTest.class);
     @Test
     public void create_person(){
-        System.out.println("Hello World" );
+        logger.debug("Hello World" );
     }
 }
