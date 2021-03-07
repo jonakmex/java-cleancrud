@@ -15,7 +15,9 @@ public class Callback {
         this.runtimeException = runtimeException;
     }
     public Callback then(Success success){
-        success.execute(output);
+        if(output != null)
+            success.execute(output);
+
         return this;
     }
     public void onError(Fail fail){

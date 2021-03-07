@@ -1,5 +1,8 @@
 package com.cleancrud.interactor.output;
 
-public class CreateUnitOutput extends Output {
+import lombok.Data;
 
+@Data
+public class CreateUnitOutput extends Output {
+    public Long id;
 }
