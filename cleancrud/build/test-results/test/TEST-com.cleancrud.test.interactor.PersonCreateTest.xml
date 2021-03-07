@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.cleancrud.test.interactor.PersonCreateTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-07T20:33:40" hostname="mac10006459.local" time="0.004">
+  <properties/>
+  <testcase name="create_person" classname="com.cleancrud.test.interactor.PersonCreateTest" time="0.004"/>
+  <system-out><![CDATA[Hello World
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

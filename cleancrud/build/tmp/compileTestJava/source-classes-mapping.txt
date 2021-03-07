@@ -1,0 +1,2 @@
+com/cleancrud/test/interactor/PersonCreateTest.java
+ com.cleancrud.test.interactor.PersonCreateTest
