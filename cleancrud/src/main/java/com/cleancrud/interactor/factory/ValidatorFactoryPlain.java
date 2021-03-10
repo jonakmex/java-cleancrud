@@ -2,7 +2,7 @@ package com.cleancrud.interactor.factory;
 
 
 import com.cleancrud.interactor.validator.unit.CreateUnitValidator;
-import com.cleancrud.interactor.validator.unit.FindAllValidator;
+import com.cleancrud.interactor.validator.unit.FindAllUnitsValidator;
 import com.cleancrud.interactor.validator.unit.UpdateUnitValidator;
 import com.skeleton.interactor.factory.ValidatorFactory;
 import com.skeleton.interactor.validator.Validator;
@@ -11,7 +11,7 @@ import com.skeleton.interactor.validator.Validator;
 public class ValidatorFactoryPlain implements ValidatorFactory {
 
     public static final CreateUnitValidator CREATE_UNIT_VALIDATOR = new CreateUnitValidator();
-    public static final FindAllValidator FIND_ALL_VALIDATOR = new FindAllValidator();
+    public static final FindAllUnitsValidator FIND_ALL_VALIDATOR = new FindAllUnitsValidator();
     public static final UpdateUnitValidator UPDATE_UNIT_VALIDATOR = new UpdateUnitValidator();
 
     @Override

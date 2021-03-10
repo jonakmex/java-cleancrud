@@ -11,13 +11,13 @@ import com.skeleton.interactor.validator.Validator;
 
 import java.util.stream.Collectors;
 
-public class FindAllInteractor implements Interactor {
+public class FindAllUnitsInteractor implements Interactor {
 
     private UnitGateway unitGateway;
     private Mapper mapper;
     private Validator validator;
 
-    public FindAllInteractor(UnitGateway unitGateway, Mapper mapper, Validator validator) {
+    public FindAllUnitsInteractor(UnitGateway unitGateway, Mapper mapper, Validator validator) {
         this.unitGateway = unitGateway;
         this.mapper = mapper;
         this.validator = validator;

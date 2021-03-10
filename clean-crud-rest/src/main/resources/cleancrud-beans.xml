@@ -17,9 +17,15 @@
         <constructor-arg name="mapper" ref="Mapper" />
     </bean>
 
-    <bean id="FindAllInteractor" class="com.cleancrud.interactor.impl.unit.FindAllInteractor" >
+    <bean id="UpdateUnitInteractor" class="com.cleancrud.interactor.impl.unit.UpdateUnitInteractor" >
         <constructor-arg name="unitGateway" ref="unitGateway"/>
-        <constructor-arg name="validator" ref="FindAllValidator"/>
+        <constructor-arg name="validator" ref="UpdateUnitValidator"/>
+        <constructor-arg name="mapper" ref="Mapper" />
+    </bean>
+
+    <bean id="FindAllInteractor" class="com.cleancrud.interactor.impl.unit.FindAllUnitsInteractor" >
+        <constructor-arg name="unitGateway" ref="unitGateway"/>
+        <constructor-arg name="validator" ref="FindAllUnitsValidator"/>
         <constructor-arg name="mapper" ref="Mapper" />
     </bean>
 
@@ -28,9 +34,10 @@
     </bean>
 
     <bean id="unitGateway" class="com.cleancrud.gateway.UnitGatewayStub" />
+
     <bean id="CreateUnitValidator" class="com.cleancrud.interactor.validator.unit.CreateUnitValidator" />
     <bean id="UpdateUnitValidator" class="com.cleancrud.interactor.validator.unit.UpdateUnitValidator" />
-    <bean id="FindAllValidator" class="com.cleancrud.interactor.validator.unit.FindAllValidator" />
+    <bean id="FindAllUnitsValidator" class="com.cleancrud.interactor.validator.unit.FindAllUnitsValidator" />
 
     <bean id="Mapper" class="com.cleancrud.interactor.mapper.MapperDozer">
         <constructor-arg name="dozer" ref="domainMapper" />

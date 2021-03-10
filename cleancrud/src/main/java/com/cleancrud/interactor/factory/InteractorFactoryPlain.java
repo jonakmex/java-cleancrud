@@ -3,7 +3,7 @@ package com.cleancrud.interactor.factory;
 import com.cleancrud.gateway.UnitGateway;
 
 import com.cleancrud.interactor.impl.unit.CreateUnitInteractor;
-import com.cleancrud.interactor.impl.unit.FindAllInteractor;
+import com.cleancrud.interactor.impl.unit.FindAllUnitsInteractor;
 import com.cleancrud.interactor.impl.unit.UpdateUnitInteractor;
 import com.skeleton.interactor.Interactor;
 import com.skeleton.interactor.factory.InteractorFactory;
@@ -35,7 +35,7 @@ public class InteractorFactoryPlain implements InteractorFactory {
         UnitGateway unitGateway = (UnitGateway) params.get("unitGateway");
         Mapper mapper = (Mapper) params.get("mapper");
         Validator validator = (Validator) params.get("validator");
-        return new FindAllInteractor(unitGateway,mapper,validator);
+        return new FindAllUnitsInteractor(unitGateway,mapper,validator);
     }
 
     private Interactor makeCreateUnitInteractor(Map<String, Object> params) {
