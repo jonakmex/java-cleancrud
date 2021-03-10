@@ -5,6 +5,7 @@ import com.cleancrud.gateway.UnitGateway;
 import com.cleancrud.interactor.impl.unit.CreateUnitInteractor;
 import com.skeleton.interactor.Interactor;
 import com.skeleton.interactor.factory.InteractorFactory;
+import com.skeleton.interactor.mapper.Mapper;
 import com.skeleton.interactor.validator.Validator;
 
 
@@ -20,6 +21,7 @@ public class InteractorFactoryPlain implements InteractorFactory {
     private Interactor makeCreateUnitInteractor(Map<String, Object> params) {
         UnitGateway unitGateway = (UnitGateway) params.get("unitGateway");
         Validator validator = (Validator) params.get("validator");
-        return new CreateUnitInteractor(unitGateway,validator);
+        Mapper mapper = (Mapper) params.get("mapper");
+        return new CreateUnitInteractor(unitGateway,validator,mapper);
     }
 }

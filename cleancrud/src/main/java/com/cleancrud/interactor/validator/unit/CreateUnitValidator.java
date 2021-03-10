@@ -1,4 +1,4 @@
-package com.cleancrud.interactor.validator;
+package com.cleancrud.interactor.validator.unit;
 
 import com.cleancrud.interactor.input.CreateUnitInput;
 import com.skeleton.interactor.exception.InputException;

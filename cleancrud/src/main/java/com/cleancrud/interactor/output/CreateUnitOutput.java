@@ -6,4 +6,5 @@ import lombok.Data;
 @Data
 public class CreateUnitOutput extends Output {
     public Long id;
+    public String description;
 }
