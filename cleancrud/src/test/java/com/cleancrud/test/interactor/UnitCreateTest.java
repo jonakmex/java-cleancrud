@@ -38,15 +38,15 @@ public class UnitCreateTest {
     public void setup(){
         inputFactory = new InputFactoryDozer(new DozerBeanMapper());
         interactorFactory = new InteractorFactoryPlain();
-        setupUnitGatewayCreate();
+        setupUnitGateway();
     }
 
     private void setupUnitGateway(){
+        unitGateway = Mockito.mock(UnitGateway.class);
         setupUnitGatewayCreate();
     }
 
     private void setupUnitGatewayCreate() {
-        unitGateway = Mockito.mock(UnitGateway.class);
         doAnswer((Answer<Void>) invocation -> {
             Unit unit = invocation.getArgumentAt(0,Unit.class);
             Double random = Math.random() * 10;
