@@ -5,7 +5,6 @@ import com.cleancrud.gateway.UnitGateway;
 import com.cleancrud.interactor.factory.InputFactoryDozer;
 import com.cleancrud.interactor.factory.InteractorFactoryPlain;
 import com.cleancrud.interactor.factory.ValidatorFactoryPlain;
-import com.cleancrud.interactor.input.UpdateUnitInput;
 import com.cleancrud.interactor.mapper.MapperDozer;
 import com.cleancrud.interactor.output.UpdateUnitOutput;
 import com.skeleton.interactor.Interactor;
@@ -18,12 +17,8 @@ import org.dozer.DozerBeanMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
