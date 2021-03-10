@@ -4,6 +4,7 @@ package com.cleancrud.interactor.factory;
 import com.cleancrud.interactor.input.CreateUnitInput;
 
 import com.cleancrud.interactor.input.FindAllInput;
+import com.cleancrud.interactor.input.UpdateUnitInput;
 import com.skeleton.interactor.factory.InputFactory;
 import com.skeleton.interactor.input.Input;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,14 @@ public class InputFactoryDozer implements InputFactory {
             return makeCreateUnitInput(params);
         else if("FindAllInput".equals(inputName))
             return makeFindAllInput(params);
+        else if("UpdateUnitInput".equals(inputName))
+            return makeUpdateUnitInput(params);
 
         return null;
+    }
+
+    private Input makeUpdateUnitInput(Map<String, Object> params) {
+        return mapper.map(params, UpdateUnitInput.class);
     }
 
     private Input makeFindAllInput(Map<String, Object> params) {

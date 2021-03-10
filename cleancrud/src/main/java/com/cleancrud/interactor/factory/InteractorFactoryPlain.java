@@ -4,6 +4,7 @@ import com.cleancrud.gateway.UnitGateway;
 
 import com.cleancrud.interactor.impl.unit.CreateUnitInteractor;
 import com.cleancrud.interactor.impl.unit.FindAllInteractor;
+import com.cleancrud.interactor.impl.unit.UpdateUnitInteractor;
 import com.skeleton.interactor.Interactor;
 import com.skeleton.interactor.factory.InteractorFactory;
 import com.skeleton.interactor.mapper.Mapper;
@@ -18,7 +19,16 @@ public class InteractorFactoryPlain implements InteractorFactory {
             return makeCreateUnitInteractor(params);
         else if("FindAllInteractor".equals(interactorName))
             return makeFindAllInteractor(params);
+        else if("UpdateUnitInteractor".equals(interactorName))
+            return makeUpdateUnitInteractor(params);
         return null;
+    }
+
+    private Interactor makeUpdateUnitInteractor(Map<String, Object> params) {
+        UnitGateway unitGateway = (UnitGateway) params.get("unitGateway");
+        Mapper mapper = (Mapper) params.get("mapper");
+        Validator validator = (Validator) params.get("validator");
+        return new UpdateUnitInteractor(unitGateway,validator,mapper);
     }
 
     private Interactor makeFindAllInteractor(Map<String, Object> params) {
