@@ -1,5 +1,6 @@
 package com.cleancrud.test.interactor;
 
+import com.cleancrud.domain.Unit;
 import com.cleancrud.gateway.UnitGateway;
 import com.cleancrud.interactor.factory.InputFactoryDozer;
 import com.cleancrud.interactor.factory.InteractorFactoryPlain;
@@ -16,11 +17,15 @@ import org.apache.log4j.Logger;
 import org.dozer.DozerBeanMapper;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doAnswer;
 
 public class UnitCreateTest {
     private static final Logger logger = Logger.getLogger(UnitCreateTest.class);
@@ -33,7 +38,21 @@ public class UnitCreateTest {
     public void setup(){
         inputFactory = new InputFactoryDozer(new DozerBeanMapper());
         interactorFactory = new InteractorFactoryPlain();
-        unitGateway = unit -> unit.setId(1L);
+        setupUnitGatewayCreate();
+    }
+
+    private void setupUnitGateway(){
+        setupUnitGatewayCreate();
+    }
+
+    private void setupUnitGatewayCreate() {
+        unitGateway = Mockito.mock(UnitGateway.class);
+        doAnswer((Answer<Void>) invocation -> {
+            Unit unit = invocation.getArgumentAt(0,Unit.class);
+            Double random = Math.random() * 10;
+            unit.setId(random.longValue());
+            return null;
+        }).when(unitGateway).create(any(Unit.class));
     }
 
     @Test
@@ -87,7 +106,7 @@ public class UnitCreateTest {
                 .then(output -> {
                     CreateUnitOutput createUnitOutput = (CreateUnitOutput)output;
                     logger.debug(createUnitOutput.getId()+" - "+createUnitOutput.getDescription());
-                    assertTrue(createUnitOutput.getId() == 1);
+                    assertTrue(createUnitOutput.getId() != null);
                 });
     }
 
