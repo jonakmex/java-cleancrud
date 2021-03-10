@@ -1,4 +1,4 @@
-package com.cleancrud.interactor.exception;
+package com.skeleton.interactor.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

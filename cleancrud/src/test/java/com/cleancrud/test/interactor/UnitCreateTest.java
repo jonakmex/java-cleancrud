@@ -2,16 +2,16 @@ package com.cleancrud.test.interactor;
 
 import com.cleancrud.domain.Unit;
 import com.cleancrud.gateway.UnitGateway;
-import com.cleancrud.interactor.Interactor;
-import com.cleancrud.interactor.exception.Code;
-import com.cleancrud.interactor.exception.InputException;
-import com.cleancrud.interactor.factory.ValidatorFactory;
-import com.cleancrud.interactor.factory.impl.InteractorFactoryPlain;
-import com.cleancrud.interactor.factory.impl.ValidatorFactoryPlain;
+import com.cleancrud.interactor.factory.InteractorFactoryPlain;
+import com.cleancrud.interactor.factory.ValidatorFactoryPlain;
 import com.cleancrud.interactor.input.CreateUnitInput;
-import com.cleancrud.interactor.input.Input;
-import com.cleancrud.interactor.factory.impl.InputFactoryDozer;
+import com.cleancrud.interactor.factory.InputFactoryDozer;
 import com.cleancrud.interactor.output.CreateUnitOutput;
+import com.skeleton.interactor.Interactor;
+import com.skeleton.interactor.exception.Code;
+import com.skeleton.interactor.exception.InputException;
+import com.skeleton.interactor.factory.ValidatorFactory;
+import com.skeleton.interactor.input.Input;
 import org.apache.log4j.Logger;
 import org.dozer.DozerBeanMapper;
 import org.junit.Before;
@@ -77,7 +77,6 @@ public class UnitCreateTest {
                 })
                 .onError(exception -> {
                     InputException inputException = (InputException) exception;
-                    logger.debug(inputException.code);
                     assertTrue(Code.ERR_INVALID_INPUT.equals(inputException.code) );
                     assertTrue("1".equals(inputException.errors.get("description").get("length")));
                 });

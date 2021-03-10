@@ -1,11 +1,12 @@
-package com.cleancrud.interactor.unit;
+package com.cleancrud.interactor.impl.unit;
 
 import com.cleancrud.gateway.UnitGateway;
-import com.cleancrud.interactor.Callback;
-import com.cleancrud.interactor.Interactor;
-import com.cleancrud.interactor.input.Input;
 import com.cleancrud.interactor.output.CreateUnitOutput;
-import com.cleancrud.interactor.validator.Validator;
+import com.skeleton.interactor.Callback;
+import com.skeleton.interactor.Interactor;
+import com.skeleton.interactor.input.Input;
+import com.skeleton.interactor.validator.Validator;
+
 
 public class CreateUnitInteractor implements Interactor {
     private UnitGateway unitGateway;
@@ -21,8 +22,8 @@ public class CreateUnitInteractor implements Interactor {
         CreateUnitOutput output = new CreateUnitOutput();
         try{
            validator.validate(input);
-            output.id = 1L;
-            return new Callback(output);
+           output.id = 1L;
+           return new Callback(output);
         }
         catch (RuntimeException e){
             return new Callback(e);

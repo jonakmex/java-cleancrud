@@ -1,13 +1,15 @@
 package com.cleancrud.interactor.validator;
 
-import com.cleancrud.interactor.exception.InputException;
 import com.cleancrud.interactor.input.CreateUnitInput;
-import com.cleancrud.interactor.input.Input;
+import com.skeleton.interactor.exception.InputException;
+import com.skeleton.interactor.input.Input;
+import com.skeleton.interactor.validator.Validator;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.cleancrud.interactor.exception.Code.ERR_INVALID_INPUT;
+import static com.skeleton.interactor.exception.Code.ERR_INVALID_INPUT;
+
 
 public class CreateUnitValidator implements Validator {
     @Override

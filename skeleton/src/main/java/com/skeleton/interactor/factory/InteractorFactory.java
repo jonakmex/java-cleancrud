@@ -1,6 +1,8 @@
-package com.cleancrud.interactor.factory;
+package com.skeleton.interactor.factory;
 
-import com.cleancrud.interactor.Interactor;
+
+
+import com.skeleton.interactor.Interactor;
 
 import java.util.Map;
 

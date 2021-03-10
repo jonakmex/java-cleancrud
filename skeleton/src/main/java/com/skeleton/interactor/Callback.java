@@ -1,7 +1,7 @@
-package com.cleancrud.interactor;
+package com.skeleton.interactor;
 
-import com.cleancrud.interactor.output.Output;
 
+import com.skeleton.interactor.output.Output;
 
 public class Callback {
     private Output output;

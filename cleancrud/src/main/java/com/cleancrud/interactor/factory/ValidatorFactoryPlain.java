@@ -1,8 +1,10 @@
-package com.cleancrud.interactor.factory.impl;
+package com.cleancrud.interactor.factory;
 
-import com.cleancrud.interactor.factory.ValidatorFactory;
+
 import com.cleancrud.interactor.validator.CreateUnitValidator;
-import com.cleancrud.interactor.validator.Validator;
+import com.skeleton.interactor.factory.ValidatorFactory;
+import com.skeleton.interactor.validator.Validator;
+
 
 public class ValidatorFactoryPlain implements ValidatorFactory {
 

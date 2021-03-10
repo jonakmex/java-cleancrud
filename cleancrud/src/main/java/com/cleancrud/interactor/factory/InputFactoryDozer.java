@@ -1,8 +1,10 @@
-package com.cleancrud.interactor.factory.impl;
+package com.cleancrud.interactor.factory;
 
-import com.cleancrud.interactor.factory.InputFactory;
+
 import com.cleancrud.interactor.input.CreateUnitInput;
-import com.cleancrud.interactor.input.Input;
+
+import com.skeleton.interactor.factory.InputFactory;
+import com.skeleton.interactor.input.Input;
 import lombok.AllArgsConstructor;
 import org.dozer.Mapper;
 

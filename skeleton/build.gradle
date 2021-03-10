@@ -3,7 +3,7 @@ plugins {
 	id 'maven'
 }
 
-group 'com.cleancrud'
+group 'com.skeleton'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -14,7 +14,6 @@ repositories {
 dependencies {
 	implementation group: 'log4j', name: 'log4j', version: '1.2.17'
 	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.18'
-	compile group: 'com.skeleton', name: 'skeleton', version: '1.0-SNAPSHOT'
 	annotationProcessor 'org.projectlombok:lombok:1.18.18'
 	implementation group: 'net.sf.dozer', name: 'dozer', version: '5.5.1'
 	testImplementation('junit:junit:4.13')
