@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+
+    <bean id="CreateUnitInteractor" class="com.cleancrud.interactor.impl.unit.CreateUnitInteractor" >
+        <constructor-arg name="unitGateway" ref="unitGateway"/>
+        <constructor-arg name="validator" ref="CreateUnitValidator"/>
+        <constructor-arg name="mapper" ref="Mapper" />
+    </bean>
+
+    <bean id="FindAllInteractor" class="com.cleancrud.interactor.impl.unit.FindAllInteractor" >
+        <constructor-arg name="unitGateway" ref="unitGateway"/>
+        <constructor-arg name="validator" ref="FindAllValidator"/>
+        <constructor-arg name="mapper" ref="Mapper" />
+    </bean>
+
+    <bean id="InputFactory" class="com.cleancrud.interactor.factory.InputFactoryDozer">
+        <constructor-arg name="mapper" ref="domainMapper"/>
+    </bean>
+
+    <bean id="unitGateway" class="com.cleancrud.gateway.UnitGatewayStub" />
+    <bean id="CreateUnitValidator" class="com.cleancrud.interactor.validator.unit.CreateUnitValidator" />
+    <bean id="UpdateUnitValidator" class="com.cleancrud.interactor.validator.unit.UpdateUnitValidator" />
+    <bean id="FindAllValidator" class="com.cleancrud.interactor.validator.unit.FindAllValidator" />
+
+    <bean id="Mapper" class="com.cleancrud.interactor.mapper.MapperDozer">
+        <constructor-arg name="dozer" ref="domainMapper" />
+    </bean>
+
+    <bean id="domainMapper" class="org.dozer.DozerBeanMapper">
+        <property name="mappingFiles">
+            <list>
+
+            </list>
+        </property>
+    </bean>
+
+    <bean id="restMapper" class="org.dozer.DozerBeanMapper">
+        <property name="mappingFiles">
+            <list>
+
+            </list>
+        </property>
+    </bean>
+
+</beans>
