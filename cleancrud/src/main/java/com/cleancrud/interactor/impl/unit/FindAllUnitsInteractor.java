@@ -8,9 +8,12 @@ import com.skeleton.interactor.Interactor;
 import com.skeleton.interactor.input.Input;
 import com.skeleton.interactor.mapper.Mapper;
 import com.skeleton.interactor.validator.Validator;
+import lombok.Data;
+import lombok.Setter;
 
 import java.util.stream.Collectors;
-
+@Data
+@Setter
 public class FindAllUnitsInteractor implements Interactor {
 
     private UnitGateway unitGateway;
@@ -21,6 +24,10 @@ public class FindAllUnitsInteractor implements Interactor {
         this.unitGateway = unitGateway;
         this.mapper = mapper;
         this.validator = validator;
+    }
+
+    public FindAllUnitsInteractor() {
+        super();
     }
 
     @Override

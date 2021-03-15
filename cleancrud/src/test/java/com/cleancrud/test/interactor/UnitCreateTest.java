@@ -2,17 +2,20 @@ package com.cleancrud.test.interactor;
 
 import com.cleancrud.domain.Unit;
 import com.cleancrud.gateway.UnitGateway;
-import com.cleancrud.interactor.factory.InputFactoryDozer;
-import com.cleancrud.interactor.factory.InteractorFactoryPlain;
-import com.cleancrud.interactor.factory.ValidatorFactoryPlain;
+import com.cleancrud.interactor.impl.unit.CreateUnitInteractor;
+import com.cleancrud.test.interactor.factory.InputFactoryDozer;
+import com.cleancrud.test.interactor.factory.ValidatorFactoryPlain;
 import com.cleancrud.interactor.input.CreateUnitInput;
 import com.cleancrud.interactor.mapper.MapperDozer;
 import com.cleancrud.interactor.output.CreateUnitOutput;
 import com.skeleton.interactor.Interactor;
 import com.skeleton.interactor.exception.Code;
 import com.skeleton.interactor.exception.InputException;
+import com.skeleton.interactor.factory.InteractorFactory;
 import com.skeleton.interactor.factory.ValidatorFactory;
 import com.skeleton.interactor.input.Input;
+import com.skeleton.interactor.mapper.Mapper;
+import com.skeleton.interactor.validator.Validator;
 import org.apache.log4j.Logger;
 import org.dozer.DozerBeanMapper;
 import org.junit.Before;
@@ -25,24 +28,33 @@ import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.*;
 
 public class UnitCreateTest {
     private static final Logger logger = Logger.getLogger(UnitCreateTest.class);
     private InputFactoryDozer inputFactory;
-    private InteractorFactoryPlain interactorFactory;
+    private InteractorFactory interactorFactory;
     private UnitGateway unitGateway;
     private ValidatorFactory validatorFactory = new ValidatorFactoryPlain();
     private MapperDozer mapperDozer = new MapperDozer(new DozerBeanMapper());
     @Before
     public void setup(){
         inputFactory = new InputFactoryDozer(new DozerBeanMapper());
-        interactorFactory = new InteractorFactoryPlain();
         setupUnitGateway();
+        setupInteractorFactory();
+    }
+
+    private void setupInteractorFactory() {
+        CreateUnitInteractor createUnitInteractor = new CreateUnitInteractor();
+        createUnitInteractor.setUnitGateway(unitGateway);
+        createUnitInteractor.setMapper(mapperDozer);
+        createUnitInteractor.setValidator(validatorFactory.make("CreateUnitValidator"));
+        interactorFactory = mock(InteractorFactory.class);
+        when(interactorFactory.make(anyString())).thenReturn(createUnitInteractor);
     }
 
     private void setupUnitGateway(){
-        unitGateway = Mockito.mock(UnitGateway.class);
+        unitGateway = mock(UnitGateway.class);
         setupUnitGatewayCreate();
     }
 
@@ -68,7 +80,7 @@ public class UnitCreateTest {
         Map<String,Object> params = new HashMap<>();
         params.put("description","Hello World");
         Input input = inputFactory.make("CreateUnitInput",params);
-        Interactor interactor = getInteractor();
+        Interactor interactor = interactorFactory.make("CreateUnitInteractor");
         interactor.execute(input)
                 .then(output -> {
                     CreateUnitOutput createUnitOutput = (CreateUnitOutput) output;
@@ -84,7 +96,7 @@ public class UnitCreateTest {
         Map<String,Object> params = new HashMap<>();
         params.put("description","H");
         Input input = inputFactory.make("CreateUnitInput",params);
-        Interactor interactor = getInteractor();
+        Interactor interactor = interactorFactory.make("CreateUnitInteractor");
         interactor.execute(input)
                 .then(output -> {
                     assertTrue(1 == 0);
@@ -101,7 +113,7 @@ public class UnitCreateTest {
         Map<String,Object> params = new HashMap<>();
         params.put("description","Hola Mundo");
         Input input = inputFactory.make("CreateUnitInput",params);
-        Interactor interactor = getInteractor();
+        Interactor interactor = interactorFactory.make("CreateUnitInteractor");
         interactor.execute(input)
                 .then(output -> {
                     CreateUnitOutput createUnitOutput = (CreateUnitOutput)output;
@@ -109,14 +121,4 @@ public class UnitCreateTest {
                     assertTrue(createUnitOutput.getId() != null);
                 });
     }
-
-    private Interactor getInteractor() {
-        Map<String,Object> interactorParams = new HashMap<>();
-        interactorParams.put("unitGateway",unitGateway);
-        interactorParams.put("validator",validatorFactory.make("CreateUnitValidator"));
-        interactorParams.put("mapper",mapperDozer);
-        Interactor interactor = interactorFactory.make("CreateUnitInteractor",interactorParams);
-        return interactor;
-    }
-
 }

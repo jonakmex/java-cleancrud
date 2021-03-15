@@ -1,21 +1,24 @@
-package com.cleancrud.interactor.factory;
+package com.cleancrud.test.interactor.factory;
 
 
 import com.cleancrud.interactor.input.CreateUnitInput;
-
 import com.cleancrud.interactor.input.FindAllInput;
 import com.cleancrud.interactor.input.UpdateUnitInput;
 import com.skeleton.interactor.factory.InputFactory;
 import com.skeleton.interactor.input.Input;
-import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.dozer.Mapper;
 
 import java.util.Map;
 
-@AllArgsConstructor
+@Data
 public class InputFactoryDozer implements InputFactory {
 
     private Mapper mapper;
+
+    public InputFactoryDozer(Mapper mapper) {
+        this.mapper = mapper;
+    }
 
     public Input make (String inputName, Map<String,Object> params){
         if("CreateUnitInput".equals(inputName))

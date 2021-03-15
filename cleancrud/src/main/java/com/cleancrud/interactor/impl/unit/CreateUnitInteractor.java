@@ -8,8 +8,11 @@ import com.skeleton.interactor.Interactor;
 import com.skeleton.interactor.input.Input;
 import com.skeleton.interactor.mapper.Mapper;
 import com.skeleton.interactor.validator.Validator;
+import lombok.Data;
+import lombok.Setter;
 
-
+@Data
+@Setter
 public class CreateUnitInteractor implements Interactor {
     private UnitGateway unitGateway;
     private Validator validator;
@@ -19,6 +22,10 @@ public class CreateUnitInteractor implements Interactor {
         this.unitGateway = unitGateway;
         this.validator = validator;
         this.mapper = mapper;
+    }
+
+    public CreateUnitInteractor() {
+        super();
     }
 
     @Override
@@ -33,6 +40,5 @@ public class CreateUnitInteractor implements Interactor {
         catch (RuntimeException e){
             return new Callback(e);
         }
-
     }
 }

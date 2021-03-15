@@ -1,4 +1,4 @@
-package com.cleancrud.interactor.factory;
+package com.cleancrud.test.interactor.factory;
 
 
 import com.cleancrud.interactor.validator.unit.CreateUnitValidator;

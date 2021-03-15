@@ -2,14 +2,15 @@ package com.cleancrud.test.interactor;
 
 import com.cleancrud.domain.Unit;
 import com.cleancrud.gateway.UnitGateway;
-import com.cleancrud.interactor.factory.InputFactoryDozer;
-import com.cleancrud.interactor.factory.InteractorFactoryPlain;
-import com.cleancrud.interactor.factory.ValidatorFactoryPlain;
+import com.cleancrud.interactor.impl.unit.UpdateUnitInteractor;
 import com.cleancrud.interactor.mapper.MapperDozer;
 import com.cleancrud.interactor.output.UpdateUnitOutput;
+import com.cleancrud.test.interactor.factory.InputFactoryDozer;
+import com.cleancrud.test.interactor.factory.ValidatorFactoryPlain;
 import com.skeleton.interactor.Interactor;
 import com.skeleton.interactor.exception.Code;
 import com.skeleton.interactor.exception.InputException;
+import com.skeleton.interactor.factory.InteractorFactory;
 import com.skeleton.interactor.factory.ValidatorFactory;
 import com.skeleton.interactor.input.Input;
 import org.apache.log4j.Logger;
@@ -23,14 +24,14 @@ import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
 
 public class UnitUpdateTest {
     private static final Logger logger = Logger.getLogger(UnitUpdateTest.class);
 
     private InputFactoryDozer inputFactory;
-    private InteractorFactoryPlain interactorFactory;
+    private InteractorFactory interactorFactory;
     private UnitGateway unitGateway;
     private ValidatorFactory validatorFactory = new ValidatorFactoryPlain();
     private MapperDozer mapperDozer = new MapperDozer(new DozerBeanMapper());
@@ -38,8 +39,17 @@ public class UnitUpdateTest {
     @Before
     public void setup(){
         inputFactory = new InputFactoryDozer(new DozerBeanMapper());
-        interactorFactory = new InteractorFactoryPlain();
         setupUnitGateway();
+        setupInteractorFactory();
+    }
+
+    private void setupInteractorFactory() {
+        UpdateUnitInteractor updateUnitInteractor = new UpdateUnitInteractor();
+        updateUnitInteractor.setUnitGateway(unitGateway);
+        updateUnitInteractor.setMapper(mapperDozer);
+        updateUnitInteractor.setValidator(validatorFactory.make("UpdateUnitValidator"));
+        interactorFactory = mock(InteractorFactory.class);
+        when(interactorFactory.make(anyString())).thenReturn(updateUnitInteractor);
     }
 
     private void setupUnitGateway(){
@@ -56,14 +66,6 @@ public class UnitUpdateTest {
        when(unitGateway.findById(2L)).thenReturn(null);
     }
 
-    private Interactor getInteractor() {
-        Map<String,Object> interactorParams = new HashMap<>();
-        interactorParams.put("unitGateway",unitGateway);
-        interactorParams.put("validator",validatorFactory.make("UpdateUnitValidator"));
-        interactorParams.put("mapper",mapperDozer);
-        Interactor interactor = interactorFactory.make("UpdateUnitInteractor",interactorParams);
-        return interactor;
-    }
 
     @Test
     public void success_update(){
@@ -71,7 +73,7 @@ public class UnitUpdateTest {
         params.put("id",1);
         params.put("description","Hello World");
         Input updateUnitInput = inputFactory.make("UpdateUnitInput",params);
-        Interactor interactor = getInteractor();
+        Interactor interactor = interactorFactory.make("UpdateUnitInteractor");
         interactor.execute(updateUnitInput)
                 .then(output -> {
                     UpdateUnitOutput updateUnitOutput = (UpdateUnitOutput) output;
@@ -86,7 +88,7 @@ public class UnitUpdateTest {
         params.put("id",2);
         params.put("description","Hello World");
         Input updateUnitInput = inputFactory.make("UpdateUnitInput",params);
-        Interactor interactor = getInteractor();
+        Interactor interactor = interactorFactory.make("UpdateUnitInteractor");
         interactor.execute(updateUnitInput)
                 .then(output -> {
                     UpdateUnitOutput updateUnitOutput = (UpdateUnitOutput) output;
@@ -101,7 +103,7 @@ public class UnitUpdateTest {
         params.put("id",1);
         params.put("description","He");
         Input updateUnitInput = inputFactory.make("UpdateUnitInput",params);
-        Interactor interactor = getInteractor();
+        Interactor interactor = interactorFactory.make("UpdateUnitInteractor");
         interactor.execute(updateUnitInput)
                 .then(output -> {
                     assertTrue(1==0);

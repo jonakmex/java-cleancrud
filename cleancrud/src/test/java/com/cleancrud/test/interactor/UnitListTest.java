@@ -3,12 +3,13 @@ package com.cleancrud.test.interactor;
 import com.cleancrud.domain.Unit;
 import com.cleancrud.gateway.UnitGateway;
 import com.cleancrud.interactor.ds.unit.UnitDS;
-import com.cleancrud.interactor.factory.InputFactoryDozer;
-import com.cleancrud.interactor.factory.InteractorFactoryPlain;
-import com.cleancrud.interactor.factory.ValidatorFactoryPlain;
+import com.cleancrud.interactor.impl.unit.FindAllUnitsInteractor;
 import com.cleancrud.interactor.mapper.MapperDozer;
 import com.cleancrud.interactor.output.FindAllOutput;
+import com.cleancrud.test.interactor.factory.InputFactoryDozer;
+import com.cleancrud.test.interactor.factory.ValidatorFactoryPlain;
 import com.skeleton.interactor.Interactor;
+import com.skeleton.interactor.factory.InteractorFactory;
 import com.skeleton.interactor.factory.ValidatorFactory;
 import com.skeleton.interactor.input.Input;
 import org.apache.log4j.Logger;
@@ -23,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class UnitListTest {
@@ -30,7 +33,7 @@ public class UnitListTest {
     private static final int NUM_UNITS = 10;
 
     private InputFactoryDozer inputFactory;
-    private InteractorFactoryPlain interactorFactory;
+    private InteractorFactory interactorFactory;
     private UnitGateway unitGateway;
     private ValidatorFactory validatorFactory = new ValidatorFactoryPlain();
     private MapperDozer mapperDozer = new MapperDozer(new DozerBeanMapper());
@@ -38,8 +41,17 @@ public class UnitListTest {
     @Before
     public void setup(){
         inputFactory = new InputFactoryDozer(new DozerBeanMapper());
-        interactorFactory = new InteractorFactoryPlain();
         setupUnitGateway();
+        setupInteractorFactory();
+    }
+
+    private void setupInteractorFactory() {
+        FindAllUnitsInteractor findAllUnitsInteractor = new FindAllUnitsInteractor();
+        findAllUnitsInteractor.setUnitGateway(unitGateway);
+        findAllUnitsInteractor.setMapper(mapperDozer);
+        findAllUnitsInteractor.setValidator(validatorFactory.make("FindAllUnitsValidator"));
+        interactorFactory = mock(InteractorFactory.class);
+        when(interactorFactory.make(anyString())).thenReturn(findAllUnitsInteractor);
     }
 
     private void setupUnitGateway(){
@@ -62,7 +74,7 @@ public class UnitListTest {
     public void find_all_units(){
         Map<String,Object> params = new HashMap<>();
         Input input = inputFactory.make("FindAllInput",params);
-        Interactor interactor = getInteractor();
+        Interactor interactor = interactorFactory.make("FindAllUnitsInteractor");
         interactor.execute(input)
         .then(output -> {
             FindAllOutput findAllOutput = (FindAllOutput) output;
@@ -75,14 +87,4 @@ public class UnitListTest {
             throw ex;
         });
     }
-
-    private Interactor getInteractor() {
-        Map<String,Object> interactorParams = new HashMap<>();
-        interactorParams.put("unitGateway",unitGateway);
-        interactorParams.put("validator",validatorFactory.make("FindAllUnitsValidator"));
-        interactorParams.put("mapper",mapperDozer);
-        Interactor interactor = interactorFactory.make("FindAllInteractor",interactorParams);
-        return interactor;
-    }
-
 }
